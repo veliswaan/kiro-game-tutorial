@@ -8,7 +8,7 @@ A working browser game of your choice - Snake, Tic-Tac-Toe, Memory Match, Flappy
 
 ## 📖 View the Tutorial
 
-Open [`index.html`](./index.html) in your web browser, or view it as a GitHub Pages site if hosted.
+View the tutorial as a [GitHub Pages](https://veliswaan.github.io/kiro-game-tutorial/) site if hosted.
 
 ## 🗺️ Tutorial Sections
 
