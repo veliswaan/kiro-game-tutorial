@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your First Web Game with Kiro</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: #374151;
+            background: #ffffff;
+            font-size: 16px;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { 
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            margin-bottom: 50px;
+            border-radius: 12px;
+        }
+        header h1 { 
+            font-size: 3em; 
+            margin-bottom: 15px; 
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        header p { 
+            font-size: 1.3em; 
+            opacity: 0.95; 
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        nav {
+            background: #f9fafb;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border: 2px solid #000000;
+        }
+        nav h3 { 
+            margin-bottom: 18px; 
+            color: #1f2937; 
+            font-size: 1.1em;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+        nav ul { list-style: none; }
+        nav li { margin: 10px 0; }
+        nav a { 
+            color: #4b5563;
+            text-decoration: none;
+            padding: 8px 12px;
+            display: block;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 0.95em;
+        }
+        nav a:hover { 
+            background: #f3f4f6; 
+            color: #1f2937;
+            transform: translateX(4px);
+        }
+        a { 
+            color: #4b5563;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+        a:hover { color: #1f2937; }
+        section a { text-decoration: underline; }
+        
+        section {
+            background: #ffffff;
+            padding: 50px;
+            margin-bottom: 40px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border: 2px solid #000000;
+        }
+        h2 { 
+            color: #1f2937;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #1f2937;
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        h3 { 
+            color: #374151;
+            margin: 35px 0 20px 0;
+            font-size: 1.5em;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+        h4 {
+            font-size: 1.15em;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: #1f2937;
+        }
+        p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+        
+        .step {
+            background: #f9fafb;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid #4b5563;
+            border-radius: 8px;
+        }
+        .step h4 { 
+            color: #1f2937; 
+            margin-bottom: 15px;
+        }
+        
+        code {
+            background: #f3f4f6;
+            color: #1f2937;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid #e5e7eb;
+            font-weight: 500;
+        }
+        pre {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 25px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid #374151;
+            line-height: 1.6;
+        }
+        pre code { 
+            padding: 0; 
+            background: none; 
+            border: none;
+            font-size: 0.95em;
+            color: #e5e7eb;
+        }
+        
+        .prompt {
+            background: #f3f4f6;
+            border-left: 4px solid #6b7280;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            position: relative;
+        }
+        .prompt strong { 
+            color: #1f2937; 
+            font-size: 1.05em;
+            font-weight: 600;
+        }
+        .prompt p { 
+            color: #374151;
+            margin-top: 10px;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #374151;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { 
+            background: #1f2937;
+            transform: translateY(-1px);
+        }
+        .copy-btn:active { 
+            background: #111827;
+            transform: translateY(0);
+        }
+        
+        .tip {
+            background: #f9fafb;
+            border-left: 4px solid #9ca3af;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .tip strong { 
+            color: #1f2937; 
+            font-size: 1.05em;
+            font-weight: 600;
+        }
+        
+        ul, ol { 
+            margin: 20px 0 20px 35px;
+            line-height: 1.8;
+        }
+        li { 
+            margin: 12px 0;
+            font-size: 1.05em;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .feature-card {
+            background: #f9fafb;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #000000;
+            transition: all 0.2s;
+        }
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        a.feature-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        a.feature-card:hover {
+            background: #f3f4f6;
+        }
+        a.feature-card h4 {
+            color: #1f2937;
+        }
+        a.feature-card p {
+            color: #374151;
+        }
+        a.feature-card::after {
+            content: "→ See prompt";
+            display: block;
+            margin-top: 15px;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .game-example {
+            display: none;
+        }
+        .feature-card h4 { 
+            color: #1f2937; 
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+        .feature-card p {
+            font-size: 1em;
+            line-height: 1.7;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            color: #6b7280;
+            font-size: 0.95em;
+        }
+        
+        em {
+            color: #4b5563;
+            font-style: normal;
+            font-weight: 500;
+        }
+        
+        strong {
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="kiro-wordmark.png" alt="Kiro Logo" style="height: 40px; margin-bottom: 20px;">
+            <h1>Build Your First Web Game</h1>
+            <p>Create a browser-based game with Kiro IDE, then share it with everyone</p>
+            <p style="font-size: 1em; margin-top: 20px; opacity: 0.85;">AWS Summit Johannesburg · Student Zone</p>
+        </header>
+
+        <nav>
+            <h3>📋 Tutorial Sections</h3>
+            <ul>
+                <li><a href="#intro">Welcome</a></li>
+                <li><a href="#setup">Part 1: Setting Up Kiro IDE</a></li>
+                <li><a href="#build-game">Part 2: Build Your Game</a></li>
+                <li><a href="#enhance-game">Part 3: Enhance Your Game</a></li>
+                <li><a href="#test-game">Part 4: Test and Polish</a></li>
+                <li><a href="#share-game">Part 5: Share Your Game on Builder Center</a></li>
+                <li><a href="#next-steps">Next Steps</a></li>
+            </ul>
+        </nav>
+
+        <section id="intro">
+            <h2>Welcome, Game Builder!</h2>
+            <p>Today you'll build your very own web-based game using Kiro, an AI-powered development assistant. By the end of this tutorial, you'll have:</p>
+            <ul>
+                <li>A working browser game you built yourself</li>
+                <li>Experience using AI to generate code</li>
+                <li>A blog post ready to share your creation with everyone!</li>
+            </ul>
+
+            <div class="tip" style="background: linear-gradient(135deg, rgba(75, 85, 99, 0.08) 0%, rgba(107, 114, 128, 0.08) 100%); border-left: 4px solid #374151;">
+                <strong>🎮 What You'll Build</strong>
+                <p>You'll create a fun, interactive game that runs in any web browser. No prior coding experience required! Kiro will do the heavy lifting - you just need to describe what you want.</p>
+                <p>Popular options include: Snake, Tic-Tac-Toe, Memory Match, Flappy Bird clone, or something entirely your own idea!</p>
+            </div>
+
+            <div class="tip" style="background: linear-gradient(135deg, rgba(75, 85, 99, 0.08) 0%, rgba(107, 114, 128, 0.08) 100%); border-left: 4px solid #374151;">
+                <strong>💡 No Coding Experience? No Worries!</strong>
+                <p>This tutorial is designed for beginners. You'll use natural language to tell Kiro what you want, and Kiro writes the code for you. Think of Kiro as a skilled developer who works alongside you, with you giving all the guidance.</p>
+            </div>
+
+            <div class="feature-grid" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="feature-card">
+                    <h4>🖱️ Visual & Easy</h4>
+                    <p>Everything happens in Kiro IDE - a friendly visual environment. No command line needed.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🗣️ Just Describe It</h4>
+                    <p>Tell Kiro what you want in plain English. It builds the game for you.</p>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center; margin-top: 25px;">
+                <div class="feature-card" style="max-width: calc(50% - 12.5px); width: 100%;">
+                    <h4>🌍 Share Your Work</h4>
+                    <p>Publish a blog post on AWS Builder Center to showcase your creation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="setup">
+            <h2>Part 1: Setting Up Kiro IDE</h2>
+            <p>Let's get Kiro IDE installed and ready to build your game.</p>
+
+            <div class="step">
+                <h4>Step 1: Download Kiro IDE</h4>
+                <ul>
+                    <li>Go to <a href="https://kiro.dev/download" target="_blank">kiro.dev/download ↗</a></li>
+                    <li>Download the version for your operating system (Windows, Mac, or Linux)</li>
+                    <li>Run the installer and follow the prompts</li>
+                    <li>Launch Kiro IDE once installed</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h4>Step 2: Create a Project Folder for Your Game</h4>
+                <p>Create a new empty folder on your computer for your game:</p>
+                <ul>
+                    <li><strong>On Windows:</strong> Right-click on your Desktop → New → Folder → Name it <code>my-web-game</code></li>
+                    <li><strong>On Mac:</strong> Right-click on your Desktop → New Folder → Name it <code>my-web-game</code></li>
+                </ul>
+                <p><em>Tip: You can name your folder anything you like, especially if you know what game you'll build (e.g., <code>snake-game</code> or <code>memory-match</code>).</em></p>
+            </div>
+
+            <div class="step">
+                <h4>Step 3: Open Your Folder in Kiro IDE</h4>
+                <ol>
+                    <li>In Kiro IDE, click <strong>File → Open Folder</strong> (or <strong>File → Open</strong> on Mac)</li>
+                    <li>Navigate to your <code>my-web-game</code> folder</li>
+                    <li>Click "Open" or "Select Folder"</li>
+                </ol>
+                <p>You should now see your empty folder in the file explorer on the left side of Kiro IDE.</p>
+            </div>
+
+            <div class="step">
+                <h4>Step 4: Open the Kiro Chat Panel</h4>
+                <p>Look for the Kiro chat panel - it's usually on the right side of the IDE. This is where you'll type your requests to Kiro. If you don't see it, look for a Kiro icon in the sidebar and click it.</p>
+            </div>
+
+            <h3>Understanding Autopilot vs Supervised Mode</h3>
+            <p>Kiro has two modes of operation. It's helpful to know the difference before you start:</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🤖 Autopilot Mode</h4>
+                    <p><strong>Kiro works autonomously</strong></p>
+                    <ul>
+                        <li>Automatically creates and modifies files</li>
+                        <li>Faster workflow</li>
+                        <li>You review changes after they're made</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>👁️ Supervised Mode</h4>
+                    <p><strong>You approve each action</strong></p>
+                    <ul>
+                        <li>Kiro asks permission before changes</li>
+                        <li>More control over what happens</li>
+                        <li>Great for learning</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>🎯 Which Mode to Use?</strong>
+                <p>Look for the <strong>Autopilot toggle</strong> in the Kiro chat panel:</p>
+                <img src="autopilot_toggle.png" alt="Autopilot toggle in Kiro IDE" style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid #e5e7eb; margin: 15px 0;">
+                <p>For your first game, we recommend <strong>Supervised Mode</strong> so you can see exactly what Kiro is doing. You can always switch to Autopilot later!</p>
+            </div>
+        </section>
+
+        <section id="build-game">
+            <h2>Part 2: Build Your Game</h2>
+            <p>Now the fun begins! First, pick a game to build, then describe it to Kiro and watch it come to life.</p>
+
+            <h3>Pick a Game to Build</h3>
+            <p>Here are some beginner-friendly options that work great as your first project:</p>
+
+            <div class="feature-grid">
+                <a href="#step-snake" class="feature-card" onclick="showGamePrompt('step-snake', event)">
+                    <h4>🐍 Snake</h4>
+                    <p>Classic arcade game. Guide the snake to eat food and grow longer without hitting walls or itself.</p>
+                    <p><em>Difficulty: Easy</em></p>
+                </a>
+                <a href="#step-ttt" class="feature-card" onclick="showGamePrompt('step-ttt', event)">
+                    <h4>❌ Tic-Tac-Toe</h4>
+                    <p>Simple two-player strategy game. Perfect for a first project - can be built quickly.</p>
+                    <p><em>Difficulty: Very Easy</em></p>
+                </a>
+                <a href="#step-memory" class="feature-card" onclick="showGamePrompt('step-memory', event)">
+                    <h4>🧠 Memory Match</h4>
+                    <p>Flip cards to find matching pairs. Great for practicing animations and state management.</p>
+                    <p><em>Difficulty: Easy</em></p>
+                </a>
+                <a href="#step-flappy" class="feature-card" onclick="showGamePrompt('step-flappy', event)">
+                    <h4>🐤 Flappy Bird</h4>
+                    <p>Tap to make a bird fly through pipes. A bit more challenging but very fun.</p>
+                    <p><em>Difficulty: Medium</em></p>
+                </a>
+                <a href="#step-breakout" class="feature-card" onclick="showGamePrompt('step-breakout', event)">
+                    <h4>🧱 Breakout</h4>
+                    <p>Break bricks with a bouncing ball. Classic paddle game with lots of physics fun.</p>
+                    <p><em>Difficulty: Medium</em></p>
+                </a>
+                <a href="#step-custom" class="feature-card" onclick="showGamePrompt('step-custom', event)">
+                    <h4>💭 Your Own Idea!</h4>
+                    <p>Have a game idea? Go for it! Kiro can help you build almost anything you can imagine.</p>
+                    <p><em>Difficulty: You decide</em></p>
+                </a>
+            </div>
+            <div id="show-all-container" style="text-align: center; margin-top: 20px;">
+                <button onclick="showAllGamePrompts()" style="background: #374151; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 0.95em; font-weight: 600;">Show all example prompts</button>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Not Sure What to Build?</strong>
+                <p>Start with <strong>Tic-Tac-Toe</strong> or <strong>Snake</strong>. These are perfect for a first game - simple enough to finish in one session, but interesting enough to showcase real skills.</p>
+            </div>
+
+            <h3>Your First Prompt</h3>
+            <p>Click any game card above to reveal a ready-to-use prompt for that game. In the Kiro chat panel, type your chosen prompt (or your own) to get started.</p>
+
+            <div class="step game-example" id="step-snake">
+                <h4>🐍 Example: Snake Game</h4>
+                <div class="prompt">
+                    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-snake')">📋 Copy</button>
+                    <strong>Prompt:</strong>
+                    <p id="prompt-snake">"Build a classic Snake game as a single HTML file that runs in a web browser. Use HTML5 Canvas for the game area. The snake should move continuously in the direction of the arrow keys. When it eats food (a red square), it grows longer and the score increases. The game ends if the snake hits the wall or itself. Show the score at the top and a game over message when the snake dies. Make it look modern and clean."</p>
+                </div>
+            </div>
+
+            <div class="step game-example" id="step-ttt">
+                <h4>❌ Example: Tic-Tac-Toe</h4>
+                <div class="prompt">
+                    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-ttt')">📋 Copy</button>
+                    <strong>Prompt:</strong>
+                    <p id="prompt-ttt">"Build a Tic-Tac-Toe game as a single HTML file. Two players take turns clicking squares in a 3x3 grid. Player 1 is X, Player 2 is O. Show whose turn it is at the top. Detect when someone wins (three in a row) or when it's a draw. Add a reset button to start a new game. Make it look modern with nice colors and smooth animations."</p>
+                </div>
+            </div>
+
+            <div class="step game-example" id="step-memory">
+                <h4>🧠 Example: Memory Match</h4>
+                <div class="prompt">
+                    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-memory')">📋 Copy</button>
+                    <strong>Prompt:</strong>
+                    <p id="prompt-memory">"Build a Memory Match card game as a single HTML file. Create a 4x4 grid of cards face down. When clicked, cards flip to reveal emojis. If two flipped cards match, they stay face up. If not, they flip back after a moment. Track the number of moves and time. Show a victory message when all pairs are matched. Make it colorful and fun."</p>
+                </div>
+            </div>
+
+            <div class="step game-example" id="step-flappy">
+                <h4>🐤 Example: Flappy Bird</h4>
+                <div class="prompt">
+                    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-flappy')">📋 Copy</button>
+                    <strong>Prompt:</strong>
+                    <p id="prompt-flappy">"Build a Flappy Bird clone as a single HTML file using HTML5 Canvas. The player controls a bird that falls due to gravity, and pressing the spacebar (or tapping the screen) makes it flap upward. Green pipes with random gaps scroll from right to left, and the player must fly through the gaps. Each pipe passed increases the score. The game ends if the bird hits a pipe or the ground. Show the score at the top and a game over screen with restart option. Make it look colorful and fun."</p>
+                </div>
+            </div>
+
+            <div class="step game-example" id="step-breakout">
+                <h4>🧱 Example: Breakout</h4>
+                <div class="prompt">
+                    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-breakout')">📋 Copy</button>
+                    <strong>Prompt:</strong>
+                    <p id="prompt-breakout">"Build a Breakout arcade game as a single HTML file using HTML5 Canvas. There's a paddle at the bottom that the player moves left and right with arrow keys or mouse. A ball bounces around the screen. At the top, there's a grid of colored bricks. The ball breaks bricks on contact, and each brick broken adds to the score. The game ends when the ball falls below the paddle. Add lives (3 attempts) and a win condition when all bricks are broken. Make the visuals modern with smooth animations."</p>
+                </div>
+            </div>
+
+            <div class="step game-example" id="step-custom">
+                <h4>💭 Building Your Own Game Idea</h4>
+                <p>Have a game idea that's not listed? Great! Here's a template you can adapt:</p>
+                <div class="prompt">
+                    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-custom')">📋 Copy</button>
+                    <strong>Template:</strong>
+                    <p id="prompt-custom">"Build a [YOUR GAME NAME] game as a single HTML file that runs in a web browser. The player [DESCRIBE HOW TO PLAY - controls, movement, actions]. The goal is to [WIN CONDITION]. The game ends when [LOSE CONDITION]. Include a score display and a game over screen. Use [any specific visual style you want - retro pixel art, modern minimalist, colorful, dark theme, etc.]. Make it fun and polished."</p>
+                </div>
+                <p><strong>Fill in the brackets</strong> with your specific game details. The more clear you are, the better Kiro can build it!</p>
+                <div class="tip" style="margin-top: 15px;">
+                    <strong>💡 Example custom game ideas</strong>
+                    <ul>
+                        <li>Space shooter where you dodge asteroids</li>
+                        <li>Rock-paper-scissors against the computer</li>
+                        <li>Word guessing game (like Hangman or Wordle)</li>
+                        <li>Reaction time test</li>
+                        <li>Whack-a-mole style clicking game</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tips for Great Prompts</strong>
+                <ul>
+                    <li><strong>Be specific:</strong> Mention colors, controls, and visual style</li>
+                    <li><strong>Ask for a single HTML file:</strong> Easier to share and run</li>
+                    <li><strong>Describe the goal:</strong> How does the player win or lose?</li>
+                    <li><strong>Don't worry about perfection:</strong> You can refine it later</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h4>Watch Kiro Build Your Game</h4>
+                <p>After you send your prompt, Kiro will:</p>
+                <ul>
+                    <li>Analyze what you want to build</li>
+                    <li>Create the necessary files (usually a single <code>index.html</code>)</li>
+                    <li>Write the HTML, CSS, and JavaScript for your game</li>
+                    <li>Explain what it's doing along the way</li>
+                </ul>
+                <p><strong>If you're in Supervised Mode:</strong> Kiro will ask for approval before creating files. Click <strong>"Accept"</strong> to allow the changes.</p>
+            </div>
+        </section>
+
+        <section id="enhance-game">
+            <h2>Part 3: Enhance Your Game</h2>
+            <p>Once your basic game works, make it more fun by adding features. Just keep chatting with Kiro!</p>
+
+            <h3>Ideas to Make Your Game Better</h3>
+
+            <div class="step">
+                <h4>Add Sound Effects</h4>
+                <div class="prompt">
+                    <strong>Try this:</strong> "Add sound effects for when the player scores, when the game ends, and for other important events. Use free web audio APIs so it works without any external files."
+                </div>
+            </div>
+
+            <div class="step">
+                <h4>Add a High Score System</h4>
+                <div class="prompt">
+                    <strong>Try this:</strong> "Add a high score system that saves the best score in the browser's local storage, so it persists between sessions. Display the high score alongside the current score."
+                </div>
+            </div>
+
+            <div class="step">
+                <h4>Add Difficulty Levels</h4>
+                <div class="prompt">
+                    <strong>Try this:</strong> "Add difficulty levels (Easy, Medium, Hard) that the player can choose before starting. Each level should change the game speed or challenge appropriately."
+                </div>
+            </div>
+
+            <div class="step">
+                <h4>Add a Start Screen</h4>
+                <div class="prompt">
+                    <strong>Try this:</strong> "Add a start screen with the game title, instructions on how to play, and a 'Start Game' button. Make it look welcoming and easy to understand."
+                </div>
+            </div>
+
+            <div class="step">
+                <h4>Make it Mobile-Friendly</h4>
+                <div class="prompt">
+                    <strong>Try this:</strong> "Make the game work on mobile devices. Add touch controls (swipe or on-screen buttons) and make the layout responsive so it looks great on phones and tablets."
+                </div>
+            </div>
+
+            <div class="step">
+                <h4>Improve the Look</h4>
+                <div class="prompt">
+                    <strong>Try this:</strong> "Improve the visual design with a modern color scheme, smooth animations, better fonts, and subtle shadows. Give it a professional polished look."
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>🎨 Get Creative!</strong>
+                <p>Don't stop at these ideas. Ask Kiro to add anything that would make your game more fun:</p>
+                <ul>
+                    <li>Power-ups and special items</li>
+                    <li>Multiple game modes</li>
+                    <li>Character customization</li>
+                    <li>Achievements or badges</li>
+                    <li>Multiplayer support</li>
+                    <li>Custom themes</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="test-game">
+            <h2>Part 4: Test and Polish</h2>
+            <p>Time to play your game and make sure everything works!</p>
+
+            <div class="step">
+                <h4>Step 1: Open Your Game</h4>
+                <p>To play your game, you need to open the HTML file in a web browser:</p>
+                <ul>
+                    <li>In Kiro IDE's file explorer, find your <code>index.html</code> file (or whatever your game file is called)</li>
+                    <li>Right-click the file and select <strong>"Reveal in File Explorer"</strong> (Windows) or <strong>"Reveal in Finder"</strong> (Mac)</li>
+                    <li>Double-click the file to open it in your default web browser</li>
+                </ul>
+                <p><em>Alternative: In Kiro IDE, you can also right-click the file and look for a "Preview" or "Open in Browser" option if available.</em></p>
+            </div>
+
+            <div class="step">
+                <h4>Step 2: Play Your Game!</h4>
+                <p>Try out your game thoroughly:</p>
+                <ul>
+                    <li>Play through a full game</li>
+                    <li>Try to win, try to lose</li>
+                    <li>Click all the buttons</li>
+                    <li>Try edge cases (rapid clicks, pressing keys quickly)</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h4>Step 3: Fix Any Issues</h4>
+                <p>Found a bug or something you don't like? Just tell Kiro!</p>
+                <div class="prompt">
+                    <strong>Example prompts:</strong>
+                    <ul>
+                        <li>"The game is too fast, can you make it slower?"</li>
+                        <li>"When I lose, the reset button doesn't work. Please fix it."</li>
+                        <li>"The colors are too bright, can you use softer tones?"</li>
+                        <li>"I found a bug: [describe the bug]. Please fix it."</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <h4>Step 4: Take Screenshots</h4>
+                <p>Once your game looks and plays great, take some screenshots! You'll need these for your blog post.</p>
+                <ul>
+                    <li><strong>On Windows:</strong> Press <code>Windows + Shift + S</code> to open the snipping tool</li>
+                    <li><strong>On Mac:</strong> Press <code>Cmd + Shift + 4</code> to select an area</li>
+                </ul>
+                <p>Capture:</p>
+                <ul>
+                    <li>The start screen (if you have one)</li>
+                    <li>Mid-gameplay with a good score</li>
+                    <li>The game over or victory screen</li>
+                    <li>Any special features you're proud of</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>🎥 Bonus: Record a Short Video</strong>
+                <p>A short video (10-30 seconds) of your gameplay is even better than screenshots for a blog post. Use:</p>
+                <ul>
+                    <li><strong>Windows:</strong> Xbox Game Bar (<code>Windows + G</code>)</li>
+                    <li><strong>Mac:</strong> QuickTime Player → File → New Screen Recording</li>
+                    <li><strong>Any OS:</strong> Free tools like <a href="https://obsproject.com" target="_blank">OBS Studio ↗</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="share-game">
+            <h2>🌍 Part 5: Share Your Game on Builder Center</h2>
+            <p>You built a game - now let's share it with the world! AWS Builder Center is a community platform where builders share their projects, tutorials, and learnings. Publishing a blog post is a fantastic way to showcase your work.</p>
+
+            <div class="tip" style="background: linear-gradient(135deg, rgba(75, 85, 99, 0.08) 0%, rgba(107, 114, 128, 0.08) 100%); border-left: 4px solid #374151;">
+                <strong>✨ Why Post to Builder Center?</strong>
+                <ul>
+                    <li><strong>Get feedback</strong> from a global community of builders</li>
+                    <li><strong>Build your portfolio</strong> - future employers can see your work</li>
+                    <li><strong>Inspire others</strong> to start their own AI-assisted projects</li>
+                    <li><strong>Join the community</strong> and connect with other developers</li>
+                </ul>
+            </div>
+
+            <h3>Step 1: Sign Up for AWS Builder Center</h3>
+
+            <div class="step">
+                <h4>Create Your AWS Builder ID</h4>
+                <p>You'll need an AWS Builder ID (it's free and separate from an AWS account):</p>
+                <ol>
+                    <li>Go to <a href="https://builder.aws.com" target="_blank">builder.aws.com ↗</a></li>
+                    <li>Click <strong>"Sign in"</strong> or <strong>"Sign up"</strong></li>
+                    <li>Follow the prompts to create your AWS Builder ID</li>
+                    <li>You can sign up with email, Google, Apple, or Amazon account</li>
+                    <li>Complete your profile with a photo and bio</li>
+                </ol>
+                <p><em>Your Builder ID also works for other AWS tools like Kiro, AWS Training, and AWS re:Post.</em></p>
+            </div>
+
+            <div class="tip">
+                <strong>🎉 Already Have a Builder ID?</strong>
+                <p>If you signed in to Kiro IDE with your Builder ID, you're already set up! Just sign in to <a href="https://builder.aws.com" target="_blank">builder.aws.com ↗</a> with the same credentials.</p>
+            </div>
+
+            <h3>Step 2: Draft Your Blog Post with Kiro</h3>
+            <p>Let Kiro help you write a great blog post about your game! Ask Kiro right in the IDE:</p>
+
+            <div class="step">
+                <h4>Get a Blog Post Draft</h4>
+                <div class="prompt">
+                    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-blog')">📋 Copy</button>
+                    <strong>Prompt:</strong>
+                    <p id="prompt-blog">"Help me write a blog post about the game I just built with you at the AWS Summit Johannesburg Student Zone. Create a file called blog-post.md with the following sections: an engaging title that mentions AWS Summit Johannesburg Student Zone, a hook introduction that mentions I built this game at the AWS Summit Johannesburg Student Zone, what I built and why, how I built it with Kiro (with example prompts I used), challenges I faced and how I solved them, what I learned, and what's next. Make it beginner-friendly, encouraging, and around 800-1200 words. Include placeholders where I should add screenshots."</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <h4>Review and Personalize</h4>
+                <p>Kiro will create a <code>blog-post.md</code> file for you. Open it and:</p>
+                <ul>
+                    <li>Read through and make it sound like <strong>you</strong></li>
+                    <li>Add your personal story - why did you want to build this?</li>
+                    <li>Include specific moments that surprised or excited you</li>
+                    <li>Mention this is your first game (or first Kiro project!) if applicable</li>
+                </ul>
+            </div>
+
+            <h3>Step 3: Post on Builder Center</h3>
+
+            <div class="step">
+                <h4>Create Your Blog Post</h4>
+                <ol>
+                    <li>Go to <a href="https://builder.aws.com" target="_blank">builder.aws.com ↗</a> and sign in</li>
+                    <li>Look for <strong>"Write"</strong> or <strong>"Create Post"</strong> in the navigation</li>
+                    <li>Choose <strong>"Blog Post"</strong> as the content type</li>
+                    <li>Add a catchy title that includes <strong>"AWS Summit Johannesburg Student Zone"</strong> (Kiro can help brainstorm titles!)</li>
+                    <li>Copy the content from your <code>blog-post.md</code> file - make sure the introduction mentions you built this at the AWS Summit Johannesburg Student Zone</li>
+                    <li>Upload your screenshots where you have placeholders</li>
+                    <li>Add tags like: <code>aws-summit</code>, <code>johannesburg</code>, <code>student-zone</code>, <code>kiro</code>, <code>ai</code>, <code>web-development</code>, <code>games</code>, <code>beginner</code></li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <h4>Add Your Game's Code</h4>
+                <p>Include snippets of interesting code from your game:</p>
+                <ul>
+                    <li>Share the prompt you used to create the game</li>
+                    <li>Show a small, interesting piece of the code Kiro wrote</li>
+                    <li>Consider linking to a GitHub repo with the full code (optional)</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h4>Preview and Publish</h4>
+                <ol>
+                    <li>Use the <strong>Preview</strong> button to see how your post will look</li>
+                    <li>Check all links work and images display correctly</li>
+                    <li>Fix any typos (ask Kiro to proofread your text!)</li>
+                    <li>Click <strong>Publish</strong> when you're ready</li>
+                </ol>
+            </div>
+
+            <h3>Blog Post Tips</h3>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📝 Show, Don't Just Tell</h4>
+                    <p>Include screenshots, code snippets, and the actual prompts you used. Concrete examples make posts memorable.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💬 Share the Struggle</h4>
+                    <p>Mention what didn't work at first. Other beginners will feel less alone when they hit similar bumps.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎯 One Key Takeaway</h4>
+                    <p>What's the most important thing readers should learn? Make sure it comes through clearly.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🤝 Invite Engagement</h4>
+                    <p>End with a question or call to action. Ask readers to try building their own game and share it.</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Get Feedback Before Publishing</strong>
+                <p>Ask Kiro to review your blog post before you publish:</p>
+                <div class="prompt" style="margin-top: 10px;">
+                    <strong>Prompt:</strong>
+                    <p>"Review my blog-post.md file and give me feedback. Is it engaging? Are there any confusing parts? What could be better?"</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="next-steps">
+            <h2>🎉 Congratulations!</h2>
+            <p>You did it! You built your very own web-based game with Kiro and are ready to share it with the world. Take a moment to appreciate what you just accomplished:</p>
+            <ul>
+                <li>✅ Set up a professional development environment</li>
+                <li>✅ Built a working game using AI-assisted development</li>
+                <li>✅ Learned how to iterate and improve through conversation</li>
+                <li>✅ Prepared a blog post to share your creation</li>
+            </ul>
+
+            <div class="tip" style="background: linear-gradient(135deg, rgba(75, 85, 99, 0.08) 0%, rgba(107, 114, 128, 0.08) 100%); border-left: 4px solid #374151;">
+                <strong>🚀 What's Next?</strong>
+                <p>You now have the skills to keep building. Here are some ideas:</p>
+                <ul>
+                    <li><strong>Build another game</strong> - Try one from a different genre</li>
+                    <li><strong>Add multiplayer</strong> - Ask Kiro to help you add online multiplayer</li>
+                    <li><strong>Build a game portfolio</strong> - Create a website showcasing all your games</li>
+                    <li><strong>Try other project types</strong> - Websites, apps, tools, whatever interests you!</li>
+                    <li><strong>Read others' posts</strong> on Builder Center for inspiration</li>
+                    <li><strong>Write another blog post</strong> about your next project</li>
+                </ul>
+            </div>
+
+            <h3>Resources</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📚 Kiro Documentation</h4>
+                    <p><a href="https://docs.kiro.dev" target="_blank">docs.kiro.dev ↗</a></p>
+                    <p>Learn about advanced Kiro features</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🌐 AWS Builder Center</h4>
+                    <p><a href="https://builder.aws.com" target="_blank">builder.aws.com ↗</a></p>
+                    <p>Read, write, and connect with builders</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💬 Kiro Community</h4>
+                    <p><a href="https://discord.com/invite/kirodotdev" target="_blank">Join on Discord ↗</a></p>
+                    <p>Chat with other Kiro users</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>📢 Share Your Post!</strong>
+                <p>Once your blog post is published, share it! Post the link on social media, tell your friends, and don't forget to tag your Developer Advocate <a href="https://linkedin.com/in/veliswa-boya" target="_blank"><strong>Veliswa Boya</strong></a> so we can celebrate your work. We love seeing what our community builds!</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>Built with ❤️ for game builders</p>
+            <p>© 2026 Kiro - AI-Powered Development</p>
+        </footer>
+    </div>
+
+    <script>
+        function showGamePrompt(stepId, event) {
+            if (event) event.preventDefault();
+            
+            const examples = document.querySelectorAll('.game-example');
+            examples.forEach(el => {
+                if (el.id === stepId) {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+            
+            const target = document.getElementById(stepId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        function showAllGamePrompts() {
+            const examples = document.querySelectorAll('.game-example');
+            examples.forEach(el => {
+                el.style.display = 'block';
+            });
+        }
+        
+        function copyPrompt(btn, promptId) {
+            const element = document.getElementById(promptId);
+            const text = element.textContent.trim().replace(/^"|"$/g, '');
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy';
+                }, 2000);
+            } catch (err) {
+                console.error('Copy failed:', err);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+    </script>
+</body>
+</html>
